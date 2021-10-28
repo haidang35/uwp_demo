@@ -1,0 +1,133 @@
+﻿<Page
+    x:Class="UWP_DEMO_1.StudentList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_DEMO_1"
+    xmlns:data="using:UWP_DEMO_1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <CommandBar>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Back" Label="Back" />
+            <AppBarButton Icon="Stop" Label="Stop" />
+            <AppBarButton Icon="Play" Label="Play" />
+            <AppBarButton Icon="Forward" Label="Forward" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Like" />
+                <AppBarButton Label="Dislike"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox Margin="10, 50"  x:Name="SearchBox" Height="50"  SelectionChanged="SearchBox_SelectionChanged" PlaceholderText="Pick a gender" Width="200">
+                <x:String>Male</x:String>
+                <x:String>Female</x:String>
+            </ComboBox>
+            <StackPanel >
+                 <TextBox x:Name="searchValue" TextChanging="SearchBox_Changing" Height="50" Width="350" FontSize="20" Margin="50" PlaceholderText="Search" BorderBrush="Aqua" />
+            </StackPanel>
+            <StackPanel >
+                <Button x:Name="deleteItemsButton"  Visibility="Collapsed" Click="Delete_ItemsChoosed" BorderBrush="AliceBlue" Height="50" Margin="10, 50">Delete Item Choosed</Button>
+            </StackPanel>
+        </StackPanel>
+        <controls:DataGrid 
+            x:Name="dataGrid1" 
+            Margin="14,150,10,326"
+            Height="1000"
+            AutoGenerateColumns="False"
+            ItemsSource="{x:Bind students}"
+            AlternatingRowBackground="LightGray"
+            HeadersVisibility="Column"
+            Sorting="dg_Sorting"
+            CanUserSortColumns="True"  
+            BeginningEdit="DataGrid_BeginningEdit"
+            CellEditEnded="DataGrid_CellEditEnded"
+            DataFetchSize="12"
+            IsReadOnly="True"
+          >
+         <controls:DataGrid.Columns>
+                <controls:DataGridTemplateColumn 
+                    Header="Action"
+                    Width="SizeToHeader"
+                     >
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox x:Name="CheckedStudent" Checked="CheckedStudent" Unchecked="UncheckedStudent" Margin="30" Tag="{ Binding RollNumber }" />
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
+                <controls:DataGridTextColumn 
+                    Header="Roll Number" 
+                    Width="SizeToCells"
+                    Binding="{Binding RollNumber}" 
+                    FontSize="20" 
+                    Tag="rollNumber"
+                    SortDirection="Ascending"/>
+                <controls:DataGridTextColumn 
+                    Header="Full Name" 
+                    Width="SizeToCells"
+                    Binding="{Binding FullName}" 
+                    Tag="fullName"
+                    SortDirection="Ascending"
+                    FontSize="20" />
+                <controls:DataGridTextColumn 
+                    Header="Gender" 
+                    Width="SizeToHeader"
+                    Binding="{Binding Gender}" 
+                    Tag="gender"
+                    FontSize="20" />
+                <controls:DataGridTextColumn 
+                    Header="Birthday" 
+                    Width="SizeToCells"
+                    Binding="{Binding Dob}" 
+                    FontSize="20" />
+                <controls:DataGridTextColumn 
+                    Header="Phone Number" 
+                    Width="SizeToCells"
+                    Binding="{Binding Phone}" 
+                    FontSize="20" />
+                <controls:DataGridTextColumn 
+                    Header="Email"
+                    Width="SizeToCells"
+                    Binding="{Binding Email}" >       
+                    <controls:DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </controls:DataGridTextColumn.ElementStyle>
+                    <controls:DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Foreground" Value="Blue"/>
+                        </Style>
+                    </controls:DataGridTextColumn.EditingElementStyle>
+                </controls:DataGridTextColumn>
+                <controls:DataGridTextColumn 
+                    Header="Address" 
+                    Width="SizeToCells"
+                    Binding="{Binding Address}" 
+                    FontSize="20" />
+                <controls:DataGridTemplateColumn 
+                    Header="Action"
+                    Width="SizeToCells"
+                     >
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                 <Button  Click="Delete_Item" CommandParameter="{Binding}" Margin="10" >
+                                    <SymbolIcon Symbol="Delete"></SymbolIcon>
+                                </Button>
+                                <Button  Click="OnEditItem" CommandParameter="{Binding}" Margin="10" >
+                                    <SymbolIcon Symbol="Edit"></SymbolIcon>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
+            </controls:DataGrid.Columns >
+        </controls:DataGrid>
+    </Grid>
+</Page>

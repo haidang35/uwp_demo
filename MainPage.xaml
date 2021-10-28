@@ -1,0 +1,28 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_DEMO_1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
+    x:Class="UWP_DEMO_1.MainPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+   
+        <NavigationView x:Name="navView" Loaded="NavigationView_Loaded" SelectionChanged="NavigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home" Tag="homePage" Content="Home"></NavigationViewItem>
+                <NavigationViewItem Icon="Add" Tag="createNewPage" Content="Create New"></NavigationViewItem>
+                <NavigationViewItem Icon="List" Tag="studentList" Content="Student List"></NavigationViewItem>
+                <NavigationViewItem Icon="FourBars" Tag="testAPI" Content="Test API"></NavigationViewItem>
+                <NavigationViewItem Icon="Target" Tag="todoList" Content="Todo List"></NavigationViewItem>
+            </NavigationView.MenuItems>
+            <ScrollViewer>
+                <Frame x:Name="ContentFrame" />
+            </ScrollViewer>
+        </NavigationView>
+       
+    </Grid>
+</Page>
